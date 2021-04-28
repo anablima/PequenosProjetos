@@ -3,11 +3,11 @@ from pytube import YouTube
 import os
 
 # Solicitando URL ao usuário
-yt = YouTube(
+link = YouTube(
 	str(input('Insira a URL do vídeo que deseja baixar: \n>> ')))
 
 # Extraindo somente o audío do vídeo
-video = yt.streams.filter(only_audio=False).first()
+video = link.streams.filter(only_audio=True).first()
 
 # Solicitando o local onde será salvo o arquivo
 print('Insira o local em deve ser feito o download '
@@ -17,9 +17,10 @@ destination = str(input(">> ")) or '.'
 # Download do arquivo
 out_file = video.download(output_path=destination)
 
-# Salvando o arquivo
+# Salvando o arquivo com o nome original do vídeo
 base, ext = os.path.splitext(out_file)
 new_file = base + '.mp3'
 os.rename(out_file, new_file)
 
-print(yt.title + ' foi baixado com sucesso :)')
+# Imprimindo mensagem de sucesso
+print(link.title + ' foi baixado com sucesso :)')
